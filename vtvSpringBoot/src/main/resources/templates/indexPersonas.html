@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>VTV</title>
+<meta charset="UTF-8">
+</head>
+<body>
+	<header th:replace="plantilla :: header"></header>
+	<h2>Personas</h2>
+<!-- 	<p th:text="${mensaje}"></p> -->
+	<br/>
+	<a th:href ="@{/agregar}">Agregar Persona</a>
+	<br />
+	<div th:if="${personas != null and !personas.empty}">
+		<table border="1">
+			<tr>
+				<th>Nombre</th>
+				<th>Apellido</th>
+				<th>DNI</th>
+			</tr>
+			<tr th:each="persona : ${personas}">
+				<td th:text="${persona.nombre}">Mostrar Nombre</td>
+				<td th:text="${persona.apellido}">Mostrar Apellido</td>
+				<td th:text="${persona.dni}">Mostrar DNI</td>
+				<td><a th:href="@{/editar/}+${persona.dni}" th:text="Editar"></a></td>
+				<td><a th:href="@{/eliminar(dni=${persona.dni})}" th:text="Eliminar"></a></td>
+			</tr>
+		</table>
+	</div>
+	<div th:if="${personas == null or personas.empty}">La lista de
+		personas está vacía
+	</div>
+	<br>
+	<a th:href ="@{/}">Regresar</a>
+	<br/>
+</body>
+</html>

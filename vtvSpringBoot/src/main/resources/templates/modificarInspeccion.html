@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="ISO-8859-1">
+		<title>Datos de la inspeccion</title>
+	</head>
+	<body>
+		<header th:replace="plantilla :: header"></header>
+		<h2> Agregar o crear inspeccion</h2>
+		<a th:href ="@{/listaInspecciones}">Regresar</a>
+		<br/>
+        <form th:action="@{/guardarInspeccion}" method="post" th:object="${inspeccion}">
+<!--         	<br/> -->
+<!--         	<label for="id">Id:</label>  -->
+<!--         	<input type="number" name="id" th:field="*{id}"/>  -->
+<!--               <span th:if="${#fields.hasErrors('id')}" th:erros="*{id}">Error de Fecha</span>  -->
+<!--             <br/>  -->
+        		
+            <br/>
+            <label for="fecha">Fecha:</label> 
+            <!-- POSIBLE ERROR EN LA PROXIMA LINEA EN TYPE TEXT ES TEST ONLY? O PUEDE SER ALFANUMERICO? -->
+            <input type="date" name="fecha" th:field="*{fecha}"/> 
+<!--              <span th:if="${#fields.hasErrors('fecha')}" th:erros="*{fecha}">Error de Fecha</span> -->
+            <br/> 
+            <label for="estado">estado:</label>
+          	<input type="text" name="estado" th:field="*{estado}"/> 
+<!--              <span th:if="${#fields.hasErrors('estado')}" th:erros="*{estado}">Error de modelo</span> -->
+            <br/> 
+             <br/> 
+            <label for="exento">exento:</label>
+          	<input type="number" name="exento" th:field="*{exento}"/> 
+<!--              <span th:if="${#fields.hasErrors('exento')}" th:erros="*{exento}">Error de marca</span> -->
+            <br/>
+              <label for="dni">dni_inspector:</label>  
+ 		     <input type="number" name="dni" th:field="*{inspector.dni}"/>   
+<!--               <span th:if="${#fields.hasErrors('inspector.dni')}" th:erros="*{inspector.dni}">Error de dni_prop</span> -->
+            <br/> 
+            <label for="vehiculo">vehiculo id:</label>
+          	<input type="number" name="vehiculo" th:field="*{vehiculo.id}"/> 
+<!--              <span th:if="${#fields.hasErrors('vehiculo.id')}" th:erros="*{vehiculo.id}">Error de marca</span> -->
+            <br/>
+             <input type="submit" name="guardar" value="Guardar"/>   
+        </form>
+	</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>VTV</title>
+<meta charset="UTF-8">
+</head>
+<body>
+	<header th:replace="plantilla :: header"></header>
+	<h2>Inicio</h2>
+<!-- 	<p th:text="${mensaje}"></p> -->
+	<br/>
+	<a th:href ="@{/listaPropietarios}">Lista Propietarios</a>
+	<br/>
+	<a th:href ="@{/listaVehiculos}">Lista Vehiculos</a>
+	<br />
+	<a th:href ="@{/listaInspectores}">Lista Inspectores</a>
+	<br />
+ 	<a th:href ="@{/listaInspecciones}">Lista Inspecciones</a> 
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>VTV</title>
+<meta charset="UTF-8">
+</head>
+<body>
+	<header th:replace="plantilla :: header"></header>
+	<h2>Inspecciones</h2>
+<!-- 	<p th:text="${mensaje}"></p> -->
+	<br/>
+	<a th:href ="@{/agregarInspeccion}">Agregar Inspeccion</a>
+	<br />
+	<div th:if="${inspecciones != null and !inspecciones.empty}">
+		<table border="1">
+			<tr>
+				<th>Nro</th>
+				<th>Fecha</th>
+				<th>Estado</th>
+				<th>Exento</th> 
+				<th>Inspector DNI</th>
+				<th>Vehiculo Id</th>
+			</tr>
+			<tr th:each="inspeccion : ${inspecciones}">
+				<td th:text="${inspeccion.id}">Mostrar dominio</td>
+				<td th:text="${inspeccion.fecha}">Mostrar marca</td>
+				<td th:text="${inspeccion.estado}">Mostrar modelo</td>
+				<td th:text="${inspeccion.exento}">Mostrar DNI</td>  
+				<td th:text="${inspeccion.inspector.dni}">Mostrar Id</td>
+				<td th:text="${inspeccion.vehiculo.id}">Mostrar Vehiculo Id</td>		
+					
+						
+				<!-- puede haber errores en la siguiente linea sobre el nombre del campo
+				
+						PREGUNTA: como hago para acceder al dni desde el vehiculo?????
+							puedo hacerlo desde la vista? ie del HTML??? o tengo que 
+							o bien agregar un parametro extra al modelo desde el controller
+							o bien agregar un campo nuevo a la clase vehiculo (esto ultimo complica las cosas)
+							de todas formas solo el campo dni no es el unico problema ya que la vista sigue sin funcionar
+							incluso si la linea que quere acceder al dni esta comentada
+							
+							la vista funciona cuando no hay vehìculos en la base de datos
+							en cuanto yo agregue un vehìculo entonces no puede mostrar la lista
+						 -->
+				<!--  <td th:text="${vehiculo.propietario}">Mostrar DNI</td>--> 
+				
+				<td><a th:href="@{/editarInspeccion/}+${inspeccion.id}" th:text="Editar"></a></td>
+				<td><a th:href="@{/eliminarInspeccion(id=${inspeccion.id})}" th:text="Eliminar"></a></td>
+			</tr>
+		</table>
+	</div>
+	<div th:if="${inspecciones == null or inspecciones.empty}">La lista de
+		inspecciones está vacía
+	</div>
+	<br>
+	<a th:href ="@{/}">Regresar</a>
+	<br/>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>VTV</title>
+<meta charset="UTF-8">
+</head>
+<body>
+	<header th:replace="plantilla :: header"></header>
+	<h2>Inspectores</h2>
+<!-- 	<p th:text="${mensaje}"></p> -->
+	<br/>
+	<a th:href ="@{/agregarInspector}">Agregar Inspector</a>
+	<br />
+	<div th:if="${inspectores != null and !inspectores.empty}">
+		<table border="1">
+			<tr>
+				<th>Nombre</th>
+				<th>Apellido</th>
+				<th>DNI</th>
+			</tr>
+			<tr th:each="inspector : ${inspectores}">
+				<td th:text="${inspector.nombre}">Mostrar Nombre</td>
+				<td th:text="${inspector.apellido}">Mostrar Apellido</td>
+				<td th:text="${inspector.dni}">Mostrar DNI</td>
+				<td><a th:href="@{/editarInspector/}+${inspector.dni}" th:text="Editar"></a></td>
+				<td><a th:href="@{/eliminarInspector(dni=${inspector.dni})}" th:text="Eliminar"></a></td>
+			</tr>
+		</table>
+	</div>
+	<div th:if="${inspectores == null or inspectores.empty}">La lista de
+		inspectores está vacía</div>
+	<br>
+	<a th:href ="@{/}">Regresar</a>
+	<br/>
+</body>
+</html>

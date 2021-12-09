@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>VTV</title>
+<meta charset="UTF-8">
+</head>
+<body>
+	<header th:replace="plantilla :: header"></header>
+	<h2>Propietarios</h2>
+<!-- 	<p th:text="${mensaje}"></p> -->
+	<br/>
+	<a th:href ="@{/agregarPropietario}">Agregar Propietario</a>
+	<br />
+	<div th:if="${propietarios != null and !propietarios.empty}">
+		<table border="1">
+			<tr>
+				<th>Nombre</th>
+				<th>Apellido</th>
+				<th>eMail</th>
+				<th>DNI</th>
+			</tr>
+			<tr th:each="propietario : ${propietarios}">
+				<td th:text="${propietario.nombre}">Mostrar Nombre</td>
+				<td th:text="${propietario.apellido}">Mostrar Apellido</td>
+				<td th:text="${propietario.mail}">Mostrar eMail</td>
+				<td th:text="${propietario.dni}">Mostrar DNI</td>
+				<td><a th:href="@{/editarPropietario/}+${propietario.dni}" th:text="Editar"></a></td>
+				<td><a th:href="@{/eliminarPropietario(dni=${propietario.dni})}" th:text="Eliminar"></a></td>
+				<td><a th:href="@{/vehiculosPropietario/}+${propietario.dni}" th:text="Vehiculos"></a></td>
+			</tr>
+		</table>
+	</div>
+	<div th:if="${propietarios == null or propietarios.empty}">La lista de
+		propietarios está vacía</div>
+	<br>
+	<a th:href ="@{/}">Regresar</a>
+	<br/>
+</body>
+</html>
