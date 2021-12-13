@@ -20,24 +20,24 @@
             <label for="fecha">Fecha:</label> 
             <!-- POSIBLE ERROR EN LA PROXIMA LINEA EN TYPE TEXT ES TEST ONLY? O PUEDE SER ALFANUMERICO? -->
             <input type="date" name="fecha" th:field="*{fecha}"/> 
-<!--              <span th:if="${#fields.hasErrors('fecha')}" th:erros="*{fecha}">Error de Fecha</span> -->
+             <span th:if="${#fields.hasErrors('fecha')}" th:erros="*{fecha}">Ingrese una  Fecha</span>
             <br/> 
             <label for="estado">estado:</label>
           	<input type="text" name="estado" th:field="*{estado}"/> 
-<!--              <span th:if="${#fields.hasErrors('estado')}" th:erros="*{estado}">Error de modelo</span> -->
+             <span th:if="${#fields.hasErrors('estado')}" th:erros="*{estado}">Ingrese un modelo</span>
             <br/> 
              <br/> 
             <label for="exento">exento:</label>
           	<input type="number" name="exento" th:field="*{exento}"/> 
-<!--              <span th:if="${#fields.hasErrors('exento')}" th:erros="*{exento}">Error de marca</span> -->
+             <span th:if="${#fields.hasErrors('exento')}" th:erros="*{exento}">Ingrese una marca</span>
             <br/>
               <label for="dni">dni_inspector:</label>  
  		     <input type="number" name="dni" th:field="*{inspector.dni}"/>   
-<!--               <span th:if="${#fields.hasErrors('inspector.dni')}" th:erros="*{inspector.dni}">Error de dni_prop</span> -->
+              <span th:if="${#fields.hasErrors('inspector.dni')}" th:erros="*{inspector.dni}">ingrese el dni de un inspector que se encuentre en la base de datos (el mismo consta de 7 a 8 caracteres)</span>
             <br/> 
             <label for="vehiculo">vehiculo id:</label>
           	<input type="number" name="vehiculo" th:field="*{vehiculo.id}"/> 
-<!--              <span th:if="${#fields.hasErrors('vehiculo.id')}" th:erros="*{vehiculo.id}">Error de marca</span> -->
+             <span th:if="${#fields.hasErrors('vehiculo.id')}" th:erros="*{vehiculo.id}">ingrese el id de un vehiculo que se encuentre en la base de datos</span>
             <br/>
              <input type="submit" name="guardar" value="Guardar"/>   
         </form>

@@ -24,6 +24,7 @@
 				<td th:text="${inspector.dni}">Mostrar DNI</td>
 				<td><a th:href="@{/editarInspector/}+${inspector.dni}" th:text="Editar"></a></td>
 				<td><a th:href="@{/eliminarInspector(dni=${inspector.dni})}" th:text="Eliminar"></a></td>
+				<td><a th:href="@{/inspeccionesInspector/}+${inspector.dni}" th:text="Inspecciones"></a></td>
 			</tr>
 		</table>
 	</div>

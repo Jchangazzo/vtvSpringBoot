@@ -24,6 +24,7 @@
              <br/>
                <label for="dni">DNI:</label>  
                <input type="number" name="dni" th:field="*{dni}"/>  
+                <span th:if="${#fields.hasErrors('dni')}" th:erros="*{dni}">El dni no puede ser 0 y debe tener entre 7 y 8 caracteres</span>
              <br/>  
              <input type="submit" name="guardar" value="Guardar"/>   
         </form>

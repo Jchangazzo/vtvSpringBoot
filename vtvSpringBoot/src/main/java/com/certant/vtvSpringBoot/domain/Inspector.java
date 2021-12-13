@@ -59,7 +59,8 @@ public class Inspector extends Persona{
 
 	@Override
 	public String toString() {
-		return "Inspector [persona=" + persona + ", inspecciones=" + inspecciones + "]";
+		return "Inspector [persona=" + persona.getDni()+" "+ persona.getApellido()
+				+" "+ persona.getNombre() + ", inspecciones=" + inspecciones + "]";
 	}
 
 	

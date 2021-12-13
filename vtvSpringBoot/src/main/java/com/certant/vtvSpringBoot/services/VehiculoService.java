@@ -27,6 +27,11 @@ public class VehiculoService {
 		return VehiculoDao.findById(id).orElse(null);
 	}
 	
+	public Vehiculo BuscarPorPatente(String dominio){
+		
+		return VehiculoDao.findByPatente(dominio).orElse(null);
+	}
+	
 public Set<Vehiculo> BuscarVehiculosPorDni(Long dni){
 		
 		return VehiculoDao.buscarVehiculosPorDni(dni);

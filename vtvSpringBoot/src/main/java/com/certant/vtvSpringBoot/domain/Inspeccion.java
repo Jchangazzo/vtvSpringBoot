@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
@@ -27,12 +29,15 @@ public class Inspeccion {
 	
 	@Column(name="fecha")
 	@DateTimeFormat(iso = ISO.DATE)
+	@NotNull(message = "Ingrese el número por favor, el mismo consta de 7 a 8 dígitos")
 	private LocalDate fecha;
 	
 	@Column(name="estado")
+	@NotNull(message = "Ingrese el estado por favor")
 	private Estado estado;
 	
 	@Column(name="exento")
+	@NotNull(message = "Ingrese el si es exento el vehiculo por favor")
 	private boolean exento;
 	
 	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.MERGE)
@@ -92,6 +97,6 @@ public class Inspeccion {
 	@Override
 	public String toString() {
 		return "Inspeccion [id=" + id + ", fecha=" + fecha + ", estado=" + estado + ", exento=" + exento
-				+ ", inspector=" + inspector + ", vehiculo=" + vehiculo + "]";
+				+ ", inspector=" + inspector.getDni() + ", vehiculo=" + vehiculo.getId() + "]";
 	}
 }

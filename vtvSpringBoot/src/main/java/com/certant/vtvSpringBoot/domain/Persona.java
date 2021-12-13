@@ -12,6 +12,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 
 @Entity
@@ -30,6 +31,7 @@ public class Persona implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	//@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@NotNull(message = "Ingrese el número por favor, el mismo consta de 7 a 8 dígitos")
 	private Long dni;
 	
 	@Column(name = "nombre")
@@ -72,6 +74,11 @@ public class Persona implements Serializable{
 	}
 	public void setDni(Long dni) {
 		this.dni = dni;
+	}
+
+	@Override
+	public String toString() {
+		return "Persona [dni=" + dni + ", nombre=" + nombre + ", apellido=" + apellido + "]";
 	}
 
 }

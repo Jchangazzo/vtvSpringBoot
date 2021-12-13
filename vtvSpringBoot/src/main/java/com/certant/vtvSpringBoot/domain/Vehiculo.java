@@ -38,7 +38,7 @@ public class Vehiculo {
 
 	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.MERGE)
 	@JoinColumn(name="dni_prop", referencedColumnName = "dni")
-	//@NotEmpty(message="Ingrese un numero de propietario por favor!")
+	//@NotNull(message="Ingrese un numero de propietario por favor!")
 	private Propietario propietario;
 	
 	@OneToMany( mappedBy="vehiculo")
@@ -125,7 +125,7 @@ public class Vehiculo {
 	@Override
 	public String toString() {
 		return "Vehiculo [id=" + id + ", dominio=" + dominio + ", marca=" + marca + ", modelo=" + modelo
-				+ ", propietario=" + propietario + ", inspecciones=" + inspecciones + "]";
+				+ ", propietario=" + propietario.getDni() + ", inspecciones=" + inspecciones + "]";
 	}
 
 	

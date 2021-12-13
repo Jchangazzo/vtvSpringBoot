@@ -5,8 +5,10 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.certant.vtvSpringBoot.domain.Propietario;
@@ -68,10 +70,29 @@ public class PropietarioController {
 	
 	
 	@PostMapping("/guardarPropietario")
-	public String guardarProp(@Valid Propietario propietario, Errors errores) {
-		if(errores.hasErrors()) {
+	public String guardarProp(@Valid @ModelAttribute Propietario propietario, BindingResult result, Model model) {
+		
+		/**
+		 * la validacion funciona bien, pero la vista no, no se muestra el mensaje 
+		 * 
+		 */
+		String dniPersona = String.valueOf(propietario.getDni());
+		if(dniPersona.length()==0) {
+			FieldError error = new FieldError("propietario", "dni", "El dni de la persona no puede ser 0");
+			result.addError(error);
+		}
+		
+		if(dniPersona.length()>8 || dniPersona.length()<7) {
+			FieldError error = new FieldError("propietario", "dni", "Los caracteres del dni deben ser 7 como minimo y 8 como maximo");
+			result.addError(error);
+		}
+		if(result.hasErrors()) {
+			model.addAttribute("titulo", "Formulario: Nueva Persona");
+			model.addAttribute("propietario", propietario);
+			System.out.println("Hubo errores en la creacion del formulario!");
 			return "modificarPropietario";
 		}
+
 		propietarioService.save(propietario);
 		return "redirect:/listaPropietarios";
 	}

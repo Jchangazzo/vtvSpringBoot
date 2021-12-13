@@ -16,20 +16,20 @@
             <label for="dominio">Patente:</label> 
             <!-- POSIBLE ERROR EN LA PROXIMA LINEA EN TYPE TEXT ES TEST ONLY? O PUEDE SER ALFANUMERICO? -->
             <input type="text" name="dominio" th:field="*{dominio}"/> 
-            <span th:if="${#fields.hasErrors('dominio')}" th:erros="*{dominio}">Error de patente</span>
+            <span th:if="${#fields.hasErrors('dominio')}" th:erros="*{dominio}">ingrese una patente valida la misma consta de 3 digitos al principio seguido de guion medio '-' y 3 letras al final</span>
             <br/> 
             <label for="modelo">modelo:</label>
           	<input type="text" name="modelo" th:field="*{modelo}"/> 
-             <span th:if="${#fields.hasErrors('modelo')}" th:erros="*{modelo}">Error de modelo</span>
+             <span th:if="${#fields.hasErrors('modelo')}" th:erros="*{modelo}">ingrese un modelo</span>
             <br/> 
              <br/> 
             <label for="marca">marca:</label>
           	<input type="text" name="marca" th:field="*{marca}"/> 
-             <span th:if="${#fields.hasErrors('marca')}" th:erros="*{marca}">Error de marca</span>
+             <span th:if="${#fields.hasErrors('marca')}" th:erros="*{marca}">ingrese una marca</span>
             <br/>
               <label for="dni">dni_prop:</label>  
  		     <input type="number" name="dni" th:field="*{propietario.dni}"/>   
-              <span th:if="${#fields.hasErrors('propietario.dni')}" th:erros="*{propietario.dni}">Error de dni_prop</span>
+              <span th:if="${#fields.hasErrors('propietario.dni')}" th:erros="*{propietario.dni}">ingrese el dni de un propietario que se encuentre en la base de datos (el mismo consta de 7 a 8 caracteres)</span>
             <br/> 
              <input type="submit" name="guardar" value="Guardar"/>   
         </form>

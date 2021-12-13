@@ -71,4 +71,5 @@ public class Propietario extends Persona{
 	public void setVehiculos(Set<Vehiculo> vehiculos) {
 		this.vehiculos = vehiculos;
 	}
+	
 }
