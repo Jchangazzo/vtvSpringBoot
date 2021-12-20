@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="ISO-8859-1">
+		<title>Datos de la inspeccion</title>
+	</head>
+	<body>
+		<header th:replace="plantilla :: header"></header>
+		<h2> Agregar o crear inspeccion</h2>
+		<a th:href ="@{/listaInspecciones}">Regresar</a>
+		<br/>
+		<div th:if="${vehiculo != null}">
+			<form th:action="@{/buscarPorFecha/}+${vehiculo.id}" method="post" th:param="${desde}+${hasta}">
+	            <label for="desde">desde:</label>
+	           	<input type="date" name="desde" th:text="${desde}"/>
+		        <label for="hasta">hasta:</label>
+		        <input type="date" name="hasta" th:text="${hasta}"/>       
+	            <input type="submit" name="buscar" value="Buscar"/>   
+	        </form>
+        </div>
+		<div th:if="${vehiculo == null}">
+			<form th:action="@{/buscarPorFecha}" method="post" th:param="${desde}+${hasta}">
+	            <label for="desde">desde:</label>
+	           	<input type="date" name="desde" th:text="${desde}"/>
+		        <label for="hasta">hasta:</label>
+		        <input type="date" name="hasta" th:text="${hasta}"/>       
+	            <input type="submit" name="buscar" value="Buscar"/>   
+	        </form>
+        </div>
+	</body>
+</html>

@@ -29,37 +29,33 @@ public class Vehiculo {
 	@NotEmpty(message="Ingrese un numero de patente por favor!")
 	private String dominio;
 	@Column(name = "marca")
-	@NotEmpty(message="Ingrese el marca por favor!")
-	private String marca;
+//	@NotEmpty(message="Ingrese el marca por favor!")
+	private Marca marca;
 	@Column(name = "modelo")
-	@NotEmpty(message="Ingrese el modelo por favor!")
-	private String modelo;
-
-
+//	@NotEmpty(message="Ingrese el modelo por favor!")
+	private Modelo modelo;
 	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.MERGE)
 	@JoinColumn(name="dni_prop", referencedColumnName = "dni")
 	//@NotNull(message="Ingrese un numero de propietario por favor!")
 	private Propietario propietario;
-	
 	@OneToMany( mappedBy="vehiculo")
 	//@JoinColumn(name="dni_prop")
 	private Set<Inspeccion> inspecciones;
 	
 
 
-	
 
 	
 
 	public Vehiculo(Long id, @NotEmpty(message = "Ingrese un numero de patente por favor!") String dominio,
-			@NotEmpty(message = "Ingrese el marca por favor!") String marca,
-			@NotEmpty(message = "Ingrese el modelo por favor!") String modelo, Propietario propietario) {
+			 @NotEmpty(message = "Ingrese el modelo por favor!") Marca marca,
+			 @NotEmpty(message = "Ingrese el modelo por favor!") Modelo modelo, Propietario propietario) {
 		super();
 		this.id = id;
 		this.dominio = dominio;
 		this.marca = marca;
-		this.modelo = modelo;
-		//this.propietario = propietario;
+		this.setModelo(modelo);
+		this.propietario = propietario;
 	}
 
 
@@ -92,18 +88,30 @@ public class Vehiculo {
 	public void setDominio(String domino) {
 		this.dominio = domino;
 	}
-	public String getMarca() {
+	public  Marca getMarca() {
 		return marca;
 	}
-	public void setMarca(String marca) {
-		this.marca = marca;
-	}
-	public String getModelo() {
+
+
+	public   Modelo getModelo() {
 		return modelo;
 	}
-	public void setModelo(String modelo) {
-		this.modelo = modelo;
+
+
+
+	public void setMarca(Marca marca) {
+		this.marca = marca;
 	}
+
+
+	public void setModelo(Modelo modelo) {
+		
+		 if(Marca.isMarcaModeloCorrecto(modelo, this.marca)) this.modelo = modelo;
+		 else System.out.print("////////////////////////////////ERROR MODELO NO MATCHEA CON MARCA////////////////////////////////////////////////");	 //tirar excepcion ERRROR NO EXISTE UN MODELO CON ESA MARCA
+		 
+	}
+	
+	
 
 
 	public Vehiculo() {
@@ -124,7 +132,7 @@ public class Vehiculo {
 
 	@Override
 	public String toString() {
-		return "Vehiculo [id=" + id + ", dominio=" + dominio + ", marca=" + marca + ", modelo=" + modelo
+		return "Vehiculo [id=" + id + ", dominio=" + dominio + ", marca=" + modelo + ", modelo=" + modelo
 				+ ", propietario=" + propietario.getDni() + ", inspecciones=" + inspecciones + "]";
 	}
 

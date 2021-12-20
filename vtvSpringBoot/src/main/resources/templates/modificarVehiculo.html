@@ -11,10 +11,7 @@
 		<br/>
         <form th:action="@{/guardarVehiculo}" method="post" th:object="${vehiculo}">
         	<br/>
-        		
-<!--             <br/> -->
             <label for="dominio">Patente:</label> 
-            <!-- POSIBLE ERROR EN LA PROXIMA LINEA EN TYPE TEXT ES TEST ONLY? O PUEDE SER ALFANUMERICO? -->
             <input type="text" name="dominio" th:field="*{dominio}"/> 
             <span th:if="${#fields.hasErrors('dominio')}" th:erros="*{dominio}">ingrese una patente valida la misma consta de 3 digitos al principio seguido de guion medio '-' y 3 letras al final</span>
             <br/> 

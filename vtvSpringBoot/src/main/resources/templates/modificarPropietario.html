@@ -13,8 +13,6 @@
 		<br/>
         <form th:action="@{/guardarPropietario}" method="post" th:object="${propietario}">
         	<br/>
-        		
-<!--             <br/> -->
             <label for="nombre">Nombre:</label> 
             <input type="text" name="nombre" th:field="*{nombre}"/> 
             <span th:if="${#fields.hasErrors('nombre')}" th:erros="*{nombre}">ingrese un nombre</span>

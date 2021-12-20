@@ -51,7 +51,6 @@ public class PropietarioController {
 	public String eliminar(Propietario prop) {
 		var vehiculos=vehiculoService.BuscarVehiculosPorDni(prop.getDni());
 		//esta bien borrar los vehiculos asi o tendrìa que hacerlo el repositorio automaticamente????
-		//si se supone que estan joined las tablas??
 		vehiculoService.eliminarTodos(vehiculos);
 		propietarioService.eliminar(prop.getDni());
 		
@@ -60,11 +59,9 @@ public class PropietarioController {
 	
 	@GetMapping("/vehiculosPropietario/{dni}")
 	public String vehiculos(Propietario propietario, Model modelo) {
-		//propietario=propietarioService.Buscar(propietario.getDni());
-		//esta bien hacerlo asi o tengo que obtenerlo con el service????
 		var vehiculos=vehiculoService.BuscarVehiculosPorDni(propietario.getDni());
+		modelo.addAttribute("propietario", propietario);
 		modelo.addAttribute("vehiculos", vehiculos);
-		//modelo.addAttribute("propietario", propietario);
 		return "indexVehiculos";
 	}
 	

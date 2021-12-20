@@ -10,6 +10,25 @@
 <!-- 	<p th:text="${mensaje}"></p> -->
 	<br/>
 	<a th:href ="@{/agregarInspeccion}">Agregar Inspeccion</a>
+	<p>Filtrar por:
+	<p th:if="${vehiculo != null}">
+	<a th:href ="@{/filtrarPorEstado/}+${vehiculo.id}" th:text="Estado">Estado</a>
+	<a th:href ="@{/filtrarPorFecha/}+${vehiculo.id}" th:text="Fecha">Fecha</a>
+<!-- 	</p> -->
+	
+	<p th:if="${vehiculo == null}">
+	<a th:href ="@{/filtrarPorEstado}">Estado</a>
+<!-- 	</p> -->
+	
+	
+<!-- 	<a th:href ="@{/condicionales}">Condicionales</a> -->
+<!-- 	<a th:href ="@{/rechazados}">Rechazados</a> -->
+	<a th:href ="@{/filtrarPorFecha}">Fecha</a>
+	<a th:href ="@{/filtrarPorPatente}">Patente</a>
+	<a th:href ="@{/filtrarPorInspector}">Inspector</a>
+	</p>
+	
+	
 	<br />
 	<div th:if="${inspecciones != null and !inspecciones.empty}">
 		<table border="1">
@@ -19,7 +38,7 @@
 				<th>Estado</th>
 				<th>Exento</th> 
 				<th>Inspector DNI</th>
-				<th>Vehiculo Id</th>
+				<th>Vehiculo patente</th>
 			</tr>
 			<tr th:each="inspeccion : ${inspecciones}">
 				<td th:text="${inspeccion.id}">Mostrar dominio</td>
@@ -27,7 +46,7 @@
 				<td th:text="${inspeccion.estado}">Mostrar modelo</td>
 				<td th:text="${inspeccion.exento}">Mostrar DNI</td>  
 				<td th:text="${inspeccion.inspector.dni}">Mostrar Id</td>
-				<td th:text="${inspeccion.vehiculo.id}">Mostrar Vehiculo Id</td>		
+				<td th:text="${inspeccion.vehiculo.dominio}">Mostrar Vehiculo Id</td>		
 					
 						
 				<!-- puede haber errores en la siguiente linea sobre el nombre del campo

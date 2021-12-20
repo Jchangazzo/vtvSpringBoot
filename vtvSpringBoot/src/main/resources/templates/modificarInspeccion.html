@@ -10,15 +10,10 @@
 		<a th:href ="@{/listaInspecciones}">Regresar</a>
 		<br/>
         <form th:action="@{/guardarInspeccion}" method="post" th:object="${inspeccion}">
-<!--         	<br/> -->
-<!--         	<label for="id">Id:</label>  -->
-<!--         	<input type="number" name="id" th:field="*{id}"/>  -->
-<!--               <span th:if="${#fields.hasErrors('id')}" th:erros="*{id}">Error de Fecha</span>  -->
-<!--             <br/>  -->
         		
             <br/>
             <label for="fecha">Fecha:</label> 
-            <!-- POSIBLE ERROR EN LA PROXIMA LINEA EN TYPE TEXT ES TEST ONLY? O PUEDE SER ALFANUMERICO? -->
+           
             <input type="date" name="fecha" th:field="*{fecha}"/> 
              <span th:if="${#fields.hasErrors('fecha')}" th:erros="*{fecha}">Ingrese una  Fecha</span>
             <br/> 
@@ -28,13 +23,15 @@
             <br/> 
              <br/> 
             <label for="exento">exento:</label>
-          	<input type="number" name="exento" th:field="*{exento}"/> 
+          	<input type="checkbox" name="exento" th:field="*{exento}"/> 
              <span th:if="${#fields.hasErrors('exento')}" th:erros="*{exento}">Ingrese una marca</span>
             <br/>
               <label for="dni">dni_inspector:</label>  
  		     <input type="number" name="dni" th:field="*{inspector.dni}"/>   
               <span th:if="${#fields.hasErrors('inspector.dni')}" th:erros="*{inspector.dni}">ingrese el dni de un inspector que se encuentre en la base de datos (el mismo consta de 7 a 8 caracteres)</span>
             <br/> 
+            
+<!-- modificar la siguiente linea y el controlador para que trabaje con la patente del auto y no con el id              -->
             <label for="vehiculo">vehiculo id:</label>
           	<input type="number" name="vehiculo" th:field="*{vehiculo.id}"/> 
              <span th:if="${#fields.hasErrors('vehiculo.id')}" th:erros="*{vehiculo.id}">ingrese el id de un vehiculo que se encuentre en la base de datos</span>

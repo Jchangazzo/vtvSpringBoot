@@ -1,8 +1,12 @@
 package com.certant.vtvSpringBoot.controllers;
 
+import java.time.LocalDate;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,7 +14,10 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.certant.vtvSpringBoot.domain.Estado;
 import com.certant.vtvSpringBoot.domain.Inspeccion;
 import com.certant.vtvSpringBoot.services.InspeccionService;
 import com.certant.vtvSpringBoot.services.InspectorService;
@@ -48,7 +55,7 @@ public class InspeccionController {
 	@GetMapping("/editarInspeccion/{id}")
 	public String editar(Inspeccion inspeccion, Model modelo) {
 //		System.out.println(inspeccion.getId()+inspeccion.getFecha().toString());
-		/**
+		/**NO ESTA IMPLEMENTADA NO PUDE HACERLA
 		 * el path toma bien el Id de la inspeccion, parece almacenarse bien
 		 * pero aca se rompe, la inspeccion que se pasa por parametro tiene Id null
 		 * aun cuando en el path se muestra el Id correcto. Luego, al hacer FindById se rompe
@@ -65,17 +72,56 @@ public class InspeccionController {
 	@GetMapping("/eliminarInspeccion")
 	public String eliminarInspeccion(Inspeccion inspeccion) {
 		
-		/*no funciona, tira error al hacer el delete, de todas formas no es la idea
-		 * borrar una inspeccion, sino que quede registrada*/
+		/*NO ESTA IMPLEMENTADO, no lo pude hacer, tira error nullptr al hacer el delete, de todas formas no es la idea
+		 * borrar una inspeccion, sino que quede registrada, */
 //		inspeccion.getVehiculo().getInspecciones().remove(inspeccion);
 //		inspeccion.getInspector().getInspecciones().remove(inspeccion);
 		inspeccionService.eliminar(inspeccion.getId());
 		return "redirect:/listaInspecciones";
 	}
+
+
+	@GetMapping("/filtrarPorEstado")
+	public String filtrarPorEstado(Estado estado, Model modelo) {
+		modelo.addAttribute("estado", estado);
+		return "insertarEstado";
+	}
+
+	@RequestMapping("/buscarPorEstado")
+	public String  buscarPorEstado(@RequestParam("estado") Estado estado,Model model)  {
+		
+		var inspecciones=inspeccionService.buscarPorEstado(estado);
+		model.addAttribute("inspecciones", inspecciones);
+		return "indexInspecciones";
+	}
+	@GetMapping("/filtrarPorFecha")
+	public String filtrarPorFecha(LocalDate desde, LocalDate hasta, Model modelo) {
+		modelo.addAttribute("desde", desde);
+		modelo.addAttribute("hasta", hasta);
+		return "instertarFechas";
+	}
+	@PostMapping("/buscarPorFecha")
+	public String buscarPorFecha(@RequestParam("desde") @DateTimeFormat(iso = ISO.DATE) LocalDate desde,
+								  @RequestParam("hasta")@DateTimeFormat(iso = ISO.DATE) LocalDate hasta, Model modelo) {
+		
+		var inspecciones=inspeccionService.buscarPorFecha(desde, hasta);
+		modelo.addAttribute("inspecciones", inspecciones);
+		return "indexInspecciones";
+	}
 	
+	
+//	@GetMapping("/filtrarPorPatente")
+//	@GetMapping("/filtrarPorInspector")
 	@PostMapping("/guardarInspeccion")
 	public String guardarInspeccion(@Valid @ModelAttribute Inspeccion inspeccion, BindingResult result, Model model) {
-		
+		/**
+		 * TODO
+		 * faltan las validaciones de los campos Estado y Exento
+		 * 
+		 * USAR ENUMS ENLAZADOS PARA LAS MARCAS (APROX 5) Y MODELOS DE AUTOS
+		 * EN EL FORM  UNA VEZ SELECCIONADO LA MARCA
+		 * 
+		 */
 		if(vehiculoService.Buscar(inspeccion.getVehiculo().getId())==null) {
 			FieldError error = new FieldError("inspeccion", "vehiculo.id", "ingrese el id de un vehiculo que se encuentre en la base de datos");
 			result.addError(error);			
@@ -110,7 +156,7 @@ public class InspeccionController {
 		vehiculoService.save(vehiculo);
 		/*
 		 *LA INSPECCION QUE SE GUARDA TIENE ID!= NULL PERO INSPECTOR Y VEHICULO TIENEN TODOS
-		 *LOS CAMPOS EN NULL , SALVO EL ID POR ESTO ES QUE CONSTRUYO LOS OBJETOS Y DESPUES SE LOS ASIGNO A LA INSPECCION
+		 *LOS CAMPOS EN NULL , SALVO EL ID POR ESTO ES QUE HAGO ESTE MAPEO
 		 * */
 		System.out.println(vehiculo.toString());
 		System.out.println(inspector.toString());
