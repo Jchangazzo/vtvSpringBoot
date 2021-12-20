@@ -44,7 +44,8 @@ public class Inspector extends Persona{
 //	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id_inspector;
 
-
+	
+	
 	public Persona getPersona() {
 		return persona;
 	}
@@ -73,8 +74,10 @@ public class Inspector extends Persona{
 
 	}
 
+
 	public Inspector(Long dni, @NotEmpty(message = "Ingrese el nombre por favor!") String nombre,
 			@NotEmpty(message = "Ingrese el apellido por favor!") String apellido) {
+		
 		super(dni, nombre, apellido);
 	}
 

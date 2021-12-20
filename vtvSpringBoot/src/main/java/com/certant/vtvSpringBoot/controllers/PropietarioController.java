@@ -22,6 +22,7 @@ public class PropietarioController {
 	private PropietarioService propietarioService;
 	@Autowired 
 	private VehiculoService vehiculoService;
+
 	
 	@GetMapping("/listaPropietarios")
 	public String listProp(Model model) {
@@ -89,7 +90,7 @@ public class PropietarioController {
 			System.out.println("Hubo errores en la creacion del formulario!");
 			return "modificarPropietario";
 		}
-
+		//personaService.save(propietario.getPersona());
 		propietarioService.save(propietario);
 		return "redirect:/listaPropietarios";
 	}

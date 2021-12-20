@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.certant.vtvSpringBoot.domain.Estado;
 import com.certant.vtvSpringBoot.domain.Inspeccion;
 import com.certant.vtvSpringBoot.domain.Marca;
-import com.certant.vtvSpringBoot.domain.Modelo;
 import com.certant.vtvSpringBoot.domain.Propietario;
 import com.certant.vtvSpringBoot.domain.Vehiculo;
 import com.certant.vtvSpringBoot.services.InspeccionService;
@@ -185,12 +184,19 @@ public class VehiculoController {
 			FieldError error = new FieldError("vehiculo", "propietario.dni", "ingrese el dni de un propietario que se encuentre en la base de datos");
 			result.addError(error);			
 		}
+		if(!Marca.isMarcaModeloCorrecto(vehiculo.getModelo(), vehiculo.getMarca())) {
+			
+			FieldError error = new FieldError("vehiculo", "Modelo", "ingrese un modelo que corresponda a esa marca");
+			result.addError(error);		
+		}
 		if(result.hasErrors()) {
 			model.addAttribute("titulo", "Formulario: Nuevo Vehiculo");
 			model.addAttribute("vehiculo", vehiculo);
 			System.out.println("Hubo errores en la creacion del vehiculo!");
 			return "modificarVehiculo";
 		}
+		
+		
 		/**
 		 * creo q no hace falta hacer este mapeo, creo que ya lo tenìa implementado sin y lo agregue despues
 		 * de hacer lo mismo en guardarInspeccion en InspeccionController

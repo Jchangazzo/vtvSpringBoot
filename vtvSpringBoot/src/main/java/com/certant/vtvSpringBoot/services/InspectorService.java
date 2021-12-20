@@ -10,7 +10,7 @@ import com.certant.vtvSpringBoot.domain.Persona;
 import com.certant.vtvSpringBoot.repositories.IinspectorDao;
 @Service
 public class InspectorService {
-	
+	private static long idInspectorValue;
 	@Autowired
 	//@Qualifier("personaDao")
 	private IinspectorDao inspectorDao;
@@ -33,9 +33,9 @@ public class InspectorService {
 	}
 
 	public void save(Inspector insp) {
-		
+		insp.setId_inspector(idInspectorValue);
 		inspectorDao.save(insp);
-		
+		idInspectorValue++;		
 	}
 
 	public void eliminar(long dni) {

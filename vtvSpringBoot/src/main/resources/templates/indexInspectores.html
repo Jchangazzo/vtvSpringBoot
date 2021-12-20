@@ -15,12 +15,12 @@
 			<tr>
 				<th>Nombre</th>
 				<th>Apellido</th>
-				<th>DNI</th>
+				<th>Id(N°Legajo)</th>
 			</tr>
 			<tr th:each="inspector : ${inspectores}">
 				<td th:text="${inspector.nombre}">Mostrar Nombre</td>
 				<td th:text="${inspector.apellido}">Mostrar Apellido</td>
-				<td th:text="${inspector.dni}">Mostrar DNI</td>
+				<td th:text="${inspector.id_inspector}">Mostrar DNI</td>
 				<td><a th:href="@{/editarInspector/}+${inspector.dni}" th:text="Editar"></a></td>
 				<td><a th:href="@{/eliminarInspector(dni=${inspector.dni})}" th:text="Eliminar"></a></td>
 				<td><a th:href="@{/inspeccionesInspector/}+${inspector.dni}" th:text="Inspecciones"></a></td>

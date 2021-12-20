@@ -32,8 +32,13 @@ public class PersonaService {
 	}
 
 	public void save(Persona persona) {
+		if(personaDao.findById(persona.getDni())!=null){
+			personaDao.guardarOActualizar(persona.getDni(),persona.getApellido(),persona.getNombre());
+
+		}else{
+			personaDao.save(persona);
+		}
 		
-		personaDao.save(persona);
 		
 	}
 
