@@ -13,8 +13,8 @@ import com.certant.vtvSpringBoot.domain.Vehiculo;
 @Repository
 public interface IVehiculoDao extends JpaRepository<Vehiculo, Long>{
 	/*QUE HACE ESTO POR ABAJO?*/
-	@Query("SELECT v FROM Vehiculo v INNER JOIN FETCH v.propietario p WHERE p.dni= (:dni)")
-	public abstract Set<Vehiculo> buscarVehiculosPorDni(@Param("dni") Long dni);
+	@Query("SELECT v FROM Vehiculo v INNER JOIN FETCH v.propietario p WHERE p.id= (:id)")
+	public abstract Set<Vehiculo> buscarVehiculosPorId(@Param("id") Long id);
 	
 	@Query("SELECT v FROM Vehiculo v  WHERE v.dominio= (:dominio)")
 	public abstract Optional<Vehiculo> findByPatente(@Param("dominio") String dominio);

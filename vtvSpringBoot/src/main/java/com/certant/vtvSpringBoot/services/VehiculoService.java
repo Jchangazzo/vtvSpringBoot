@@ -14,7 +14,6 @@ public class VehiculoService {
 	
 	@Autowired
 	private IVehiculoDao VehiculoDao;
-	
 	public List<Vehiculo> getAll() {
 
 		return VehiculoDao.findAll();
@@ -32,9 +31,9 @@ public class VehiculoService {
 		return VehiculoDao.findByPatente(dominio).orElse(null);
 	}
 	
-public Set<Vehiculo> BuscarVehiculosPorDni(Long dni){
+public Set<Vehiculo> BuscarVehiculosPorId(Long id){
 		
-		return VehiculoDao.buscarVehiculosPorDni(dni);
+		return VehiculoDao.buscarVehiculosPorId(id);
 	}
 
 	public void save(Vehiculo vehiculo) {

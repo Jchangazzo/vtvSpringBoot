@@ -18,7 +18,7 @@ import com.certant.vtvSpringBoot.services.InspectorService;
 @Controller
 public class InspectorController {
 	
-	private static long idInspectorValue=0;
+//	private static long idInspectorValue=0;
 	@Autowired 
 	private InspectorService inspectorService;
 	@Autowired 
@@ -39,9 +39,9 @@ public class InspectorController {
 	}
 	
 	
-	@GetMapping("/editarInspector/{id_inspector}")
+	@GetMapping("/editarInspector/{id}")
 	public String editar(Inspector inspector, Model modelo) {
-		inspector=inspectorService.findById(inspector.getId_inspector());
+		inspector=inspectorService.findById(inspector.getId());
 		modelo.addAttribute("inspector", inspector);
 		return "modificarInspector";
 	}
@@ -49,15 +49,15 @@ public class InspectorController {
 	@GetMapping("/eliminarInspector")
 	public String eliminar(Inspector inspector) {
 		
-		inspectorService.eliminar(inspector.getId_inspector());
-		idInspectorValue--;
+		inspectorService.eliminar(inspector.getId());
+//		idInspectorValue--;
 		return "redirect:/listaInspectores";
 	}
 	
 	@GetMapping("/inspeccionesInspector/{id}")
 	public String inspecciones(Inspector inspector, Model modelo) {
 
-		var inspecciones=inspeccionService.buscarInspeccionesPorDni(inspector.getId_inspector());
+		var inspecciones=inspeccionService.buscarInspeccionesPorDni(inspector.getId());
 		modelo.addAttribute("inspecciones", inspecciones);
 
 		return "indexInspecciones";
@@ -82,9 +82,9 @@ public class InspectorController {
 			System.out.println("Hubo errores en la creacion del inspector!");
 			return "modificarInspector";
 		}
-		inspector.setId_inspector(idInspectorValue);
+//		inspector.setId(idInspectorValue);
 		inspectorService.save(inspector);
-		idInspectorValue++;
+//		idInspectorValue++;
 		return "redirect:/listaInspectores";
 	}
 

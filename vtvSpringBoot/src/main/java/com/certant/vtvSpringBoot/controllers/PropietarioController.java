@@ -40,7 +40,7 @@ public class PropietarioController {
 	
 	@GetMapping("/editarPropietario/{dni}")
 	public String editar(Propietario propietario, Model modelo) {
-		propietario=propietarioService.Buscar(propietario.getDni());
+//		var propietario=propietarioService.findById(propietario.getId());
 		modelo.addAttribute("propietario", propietario);
 		return "modificarPropietario";
 	}
@@ -50,17 +50,17 @@ public class PropietarioController {
 	 * */
 	@GetMapping("/eliminarPropietario")
 	public String eliminar(Propietario prop) {
-		var vehiculos=vehiculoService.BuscarVehiculosPorDni(prop.getDni());
+		var vehiculos=vehiculoService.BuscarVehiculosPorId(prop.getId());
 		//esta bien borrar los vehiculos asi o tendrìa que hacerlo el repositorio automaticamente????
 		vehiculoService.eliminarTodos(vehiculos);
-		propietarioService.eliminar(prop.getDni());
+		propietarioService.eliminar(prop.getId());
 		
 		return "redirect:/listaPropietarios";
 	}
 	
-	@GetMapping("/vehiculosPropietario/{dni}")
+	@GetMapping("/vehiculosPropietario/{id}")
 	public String vehiculos(Propietario propietario, Model modelo) {
-		var vehiculos=vehiculoService.BuscarVehiculosPorDni(propietario.getDni());
+		var vehiculos=vehiculoService.BuscarVehiculosPorId(propietario.getId());
 		modelo.addAttribute("propietario", propietario);
 		modelo.addAttribute("vehiculos", vehiculos);
 		return "indexVehiculos";
@@ -75,6 +75,7 @@ public class PropietarioController {
 		 * 
 		 */
 		String dniPersona = String.valueOf(propietario.getDni());
+		System.out.println(dniPersona);
 		if(dniPersona.length()==0) {
 			FieldError error = new FieldError("propietario", "dni", "El dni de la persona no puede ser 0");
 			result.addError(error);

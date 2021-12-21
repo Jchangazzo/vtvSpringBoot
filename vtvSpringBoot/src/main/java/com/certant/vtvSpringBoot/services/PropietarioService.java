@@ -1,6 +1,7 @@
 package com.certant.vtvSpringBoot.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,15 +26,15 @@ public class PropietarioService {
 		return propietarioDao.findAll();
 	}
 
-	public Propietario findByDni(long dni) {
+	public Propietario findById(long id) {
 
-		return null;
+		return propietarioDao.findById(id).orElse(null);
 	}
 
-	public Propietario Buscar(long dni){
-		
-		return propietarioDao.findById(dni).orElse(null);
-	}
+//	public Propietario Buscar(long dni){
+//		
+//		return propietarioDao.findByDni(dni).orElse(null);
+//	}
 
 	public void save(Propietario prop) {
 		propietarioDao.save(prop);
@@ -45,10 +46,10 @@ public class PropietarioService {
 		return propietarioDao.vehiculos(dni);
 	}*/
 
-	public void eliminar(Long dni) {
+	public void eliminar(Long id) {
 		/*List<Vehiculo> vehiculos=getVehiculos(dni);
 		vehiculoDao.deleteAll(vehiculos);*/
-		propietarioDao.deleteById(dni);
+		propietarioDao.deleteById(id);
 		
 	}
 	

@@ -11,7 +11,7 @@
 	
 	
 	<p th:if="${propietario != null}">
-	<a th:href ="@{/agregarVehiculos/}+${propietario.dni}">Agregar Vehiculo</a>
+	<a th:href ="@{/agregarVehiculos/}+${propietario.id}">Agregar Vehiculo</a>
 	</p>
 	
 	<p th:if="${propietario == null}">

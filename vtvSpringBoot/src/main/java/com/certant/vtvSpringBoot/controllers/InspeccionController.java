@@ -118,8 +118,6 @@ public class InspeccionController {
 		 * TODO
 		 * faltan las validaciones de los campos Estado y Exento
 		 * 
-		 * USAR ENUMS ENLAZADOS PARA LAS MARCAS (APROX 5) Y MODELOS DE AUTOS
-		 * EN EL FORM  UNA VEZ SELECCIONADO LA MARCA
 		 * 
 		 */
 		if(vehiculoService.Buscar(inspeccion.getVehiculo().getId())==null) {

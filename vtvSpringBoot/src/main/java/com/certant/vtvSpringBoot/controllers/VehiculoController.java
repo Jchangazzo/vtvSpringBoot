@@ -22,9 +22,11 @@ import com.certant.vtvSpringBoot.domain.Estado;
 import com.certant.vtvSpringBoot.domain.Inspeccion;
 import com.certant.vtvSpringBoot.domain.Marca;
 import com.certant.vtvSpringBoot.domain.Modelo;
+import com.certant.vtvSpringBoot.domain.Persona;
 import com.certant.vtvSpringBoot.domain.Propietario;
 import com.certant.vtvSpringBoot.domain.Vehiculo;
 import com.certant.vtvSpringBoot.services.InspeccionService;
+import com.certant.vtvSpringBoot.services.PersonaService;
 import com.certant.vtvSpringBoot.services.PropietarioService;
 import com.certant.vtvSpringBoot.services.VehiculoService;
 
@@ -39,7 +41,8 @@ public class VehiculoController {
 		modelosVW=Modelo.getTodasModeloVW();
 		modelosFord=Modelo.getTodasModeloFord();
 	}
-	
+	@Autowired 
+	private PersonaService personaService;
 	@Autowired 
 	private VehiculoService vehiculoService;
 	@Autowired 
@@ -76,12 +79,13 @@ public class VehiculoController {
 	}
 	
 	
-	@GetMapping("/agregarVehiculos/{dni}")
+	@GetMapping("/agregarVehiculos/{id}")
 	public String agregarEnProp(Vehiculo vehiculo, Propietario prop, Model modelo) {
-		var propietario=propietarioService.Buscar(prop.getDni());
+		var propietario=propietarioService.findById(prop.getId());
+		System.out.println(propietario.toString());
 		vehiculo.setPropietario(propietario);
-		modelo.addAttribute("modelosVW", modelosVW);
-		modelo.addAttribute("modelosFord", modelosFord);
+//		modelo.addAttribute("modelosVW", modelosVW);
+//		modelo.addAttribute("modelosFord", modelosFord);
 		modelo.addAttribute("marcas", marcas);
 		modelo.addAttribute("vehiculo", vehiculo);
 		modelo.addAttribute("propietario", propietario);
@@ -207,8 +211,11 @@ public class VehiculoController {
 			result.addError(error);		
 		}
 		
-		
-		if(propietarioService.Buscar(vehiculo.getPropietario().getDni())==null) {
+		Persona persona=personaService.buscarPorDni(vehiculo.getPropietario().getDni());
+		Propietario prop=vehiculo.getPropietario();
+		prop.setId(persona.getId());
+		vehiculo.setPropietario(prop);
+		if(propietarioService.findById(vehiculo.getPropietario().getId())==null) {
 			FieldError error = new FieldError("vehiculo", "propietario.dni", "ingrese el dni de un propietario que se encuentre en la base de datos");
 			result.addError(error);			
 		}
@@ -229,14 +236,14 @@ public class VehiculoController {
 		 * creo q no hace falta hacer este mapeo, creo que ya lo tenìa implementado sin y lo agregue despues
 		 * de hacer lo mismo en guardarInspeccion en InspeccionController
 		 */
-		var prop=propietarioService.Buscar(vehiculo.getPropietario().getDni());
-		vehiculo.setPropietario(prop);
-		prop.getVehiculos().add(vehiculo);
+		var propietario=propietarioService.findById(vehiculo.getPropietario().getId());
+		vehiculo.setPropietario(propietario);
+		propietario.getVehiculos().add(vehiculo);
 		System.out.println(vehiculo.getPropietario());
 
 		vehiculoService.save(vehiculo);
-		propietarioService.save(prop);
-		System.out.println(propietarioService.Buscar(prop.getDni()).toString());
+//		propietarioService.save(prop);
+		System.out.println(propietarioService.findById(propietario.getId()).toString());
 		return "redirect:/listaVehiculos";
 	}
 

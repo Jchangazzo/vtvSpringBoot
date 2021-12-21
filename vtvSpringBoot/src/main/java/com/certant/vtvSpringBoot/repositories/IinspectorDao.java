@@ -12,7 +12,7 @@ import com.certant.vtvSpringBoot.domain.Inspector;
 @Repository
 public interface IinspectorDao extends JpaRepository<Inspector, Long>{
 	
-	@Query("SELECT i FROM Inspector i WHERE i.id_inspector=(:id)")
+	@Query("SELECT i FROM Inspector i WHERE i.id=(:id)")
 	Optional<Inspector> buscarPorId(@Param("id") long id);
 
 }

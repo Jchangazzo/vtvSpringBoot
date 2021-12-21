@@ -35,7 +35,7 @@ public class Vehiculo {
 //	@NotEmpty(message="Ingrese el modelo por favor!")
 	private Modelo modelo;
 	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.MERGE)
-	@JoinColumn(name="dni_prop", referencedColumnName = "dni")
+	@JoinColumn(name="id_prop", referencedColumnName = "id")
 	//@NotNull(message="Ingrese un numero de propietario por favor!")
 	private Propietario propietario;
 	@OneToMany( mappedBy="vehiculo")

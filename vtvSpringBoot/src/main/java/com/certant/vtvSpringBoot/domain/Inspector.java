@@ -15,7 +15,7 @@ import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name="inspector")
-@PrimaryKeyJoinColumn(referencedColumnName = "dni")
+@PrimaryKeyJoinColumn(referencedColumnName = "id")
 public class Inspector extends Persona{
 
 	/**TODO 
@@ -25,16 +25,16 @@ public class Inspector extends Persona{
 	
 	
 	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="dni")
+	@JoinColumn(name="id")
 	private Persona persona;
 	
 	@OneToMany( mappedBy="inspector")
 	//@JoinColumn(name="dni_prop")
 	private Set<Inspeccion> inspecciones;
-	
-	@Column(name = "id_inspector")
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id_inspector;
+//	
+//	@Column(name = "id_inspector")
+////	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	private Long id_inspector;
 
 	
 	
@@ -46,13 +46,13 @@ public class Inspector extends Persona{
 		this.persona = persona;
 	}
 
-	public Long getId_inspector() {
-		return id_inspector;
-	}
-
-	public void setId_inspector(Long id_inspector) {
-		this.id_inspector = id_inspector;
-	}
+//	public Long getId_inspector() {
+//		return id_inspector;
+//	}
+//
+//	public void setId_inspector(Long id_inspector) {
+//		this.id_inspector = id_inspector;
+//	}
 
 	public Set<Inspeccion> getInspecciones() {
 		return inspecciones;

@@ -21,14 +21,14 @@ public class PersonaService {
 		return personaDao.findAll();
 	}
 
-	public Persona findByDni(long dni) {
+	public Persona buscarPorDni(long dni) {
 		
-		return null;
+		return personaDao.buscarPorDni(dni).orElse(null);
 	}
 
-	public Persona Buscar(long dni){
+	public Persona Buscar(long id){
 		
-		return personaDao.findById(dni).orElse(null);
+		return personaDao.findById(id).orElse(null);
 	}
 
 	public void save(Persona persona) {

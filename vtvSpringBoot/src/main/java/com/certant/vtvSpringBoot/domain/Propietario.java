@@ -14,9 +14,13 @@ import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name="propietario")
-@PrimaryKeyJoinColumn(referencedColumnName = "dni")
+@PrimaryKeyJoinColumn(referencedColumnName = "id")
 public class Propietario extends Persona{
 
+
+	public void setPersona(Persona persona) {
+		this.persona = persona;
+	}
 
 	private static final long serialVersionUID = 1L;
 	//TODO
@@ -27,9 +31,8 @@ public class Propietario extends Persona{
 	//TEMA FECHAS, TEMA RELACIONES DE AUTOS E INSPECCIONES, 
 	//private static final long serialVersionUID = 1L;
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="dni")
+	@JoinColumn(name="id")
 	private Persona persona;
-	
 
 
 	@OneToMany( mappedBy="propietario")
