@@ -19,14 +19,6 @@ import javax.validation.constraints.NotEmpty;
 public class Inspector extends Persona{
 
 	/**TODO 
-	 * EL MODELO ORIGINARL TENIAUN IDENTIFICADOR APARTE PARA LOS INSPECTORES
-	 * SEGUN UN TIPO DE SOF NO PODES PONER @Id EN UNA CLASE HIJA SI YA TENES DEFINIDO UN
-	 * IDENTIFICADOR EN LA CLASE PADRE POR ESO LO HAGO ASI 
-	 * COMO PUEDO AGREGAR UN AUTOINCREMENTABLE QUE NO SEA EL ID??
-	 * 
-	 * TODO ////////////////////////////////////////////////////////HACER ESTO PRIMERO/////////////////////////////////////////////////////////////////
-	 * CREAR UNA NUEVA CLASE "EMPLEADO" CON UN ATRIBUTO LONG, QUE HERDE DE PERSONA Y HACER QUE INSPECTOR HEREDE DE EMPLEADO
-	 * USAR ESE ATRIBUTO COMO IDENTIFICADOR
 	 */
 	private static final long serialVersionUID = 1L;
 	

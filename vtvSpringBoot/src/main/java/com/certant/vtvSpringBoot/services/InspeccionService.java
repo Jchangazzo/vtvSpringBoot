@@ -29,9 +29,9 @@ public class InspeccionService {
 		return inspeccionDao.findById(id).orElse(null);
 	}
 	
-	public Set<Inspeccion> buscarInspeccionesPorDni(Long dni){
+	public Set<Inspeccion> buscarInspeccionesPorDni(Long id){
 		
-		return inspeccionDao.buscarInspeccionesPorDni(dni);
+		return inspeccionDao.buscarInspeccionesPorId(id);
 	}
 	
 	public Set<Inspeccion> buscarInspeccionesPorAuto(Long id){

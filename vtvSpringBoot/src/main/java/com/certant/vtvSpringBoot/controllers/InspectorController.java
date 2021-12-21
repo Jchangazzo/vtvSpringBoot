@@ -18,6 +18,7 @@ import com.certant.vtvSpringBoot.services.InspectorService;
 @Controller
 public class InspectorController {
 	
+	private static long idInspectorValue=0;
 	@Autowired 
 	private InspectorService inspectorService;
 	@Autowired 
@@ -33,13 +34,14 @@ public class InspectorController {
 	
 	@GetMapping("/agregarInspector")
 	public String agregar(Inspector insp) {
+
 		return "modificarInspector";
 	}
 	
 	
-	@GetMapping("/editarInspector/{dni}")
+	@GetMapping("/editarInspector/{id_inspector}")
 	public String editar(Inspector inspector, Model modelo) {
-		inspector=inspectorService.Buscar(inspector.getDni());
+		inspector=inspectorService.findById(inspector.getId_inspector());
 		modelo.addAttribute("inspector", inspector);
 		return "modificarInspector";
 	}
@@ -47,14 +49,15 @@ public class InspectorController {
 	@GetMapping("/eliminarInspector")
 	public String eliminar(Inspector inspector) {
 		
-		inspectorService.eliminar(inspector.getDni());
+		inspectorService.eliminar(inspector.getId_inspector());
+		idInspectorValue--;
 		return "redirect:/listaInspectores";
 	}
 	
-	@GetMapping("/inspeccionesInspector/{dni}")
+	@GetMapping("/inspeccionesInspector/{id}")
 	public String inspecciones(Inspector inspector, Model modelo) {
 
-		var inspecciones=inspeccionService.buscarInspeccionesPorDni(inspector.getDni());
+		var inspecciones=inspeccionService.buscarInspeccionesPorDni(inspector.getId_inspector());
 		modelo.addAttribute("inspecciones", inspecciones);
 
 		return "indexInspecciones";
@@ -79,8 +82,9 @@ public class InspectorController {
 			System.out.println("Hubo errores en la creacion del inspector!");
 			return "modificarInspector";
 		}
-
+		inspector.setId_inspector(idInspectorValue);
 		inspectorService.save(inspector);
+		idInspectorValue++;
 		return "redirect:/listaInspectores";
 	}
 

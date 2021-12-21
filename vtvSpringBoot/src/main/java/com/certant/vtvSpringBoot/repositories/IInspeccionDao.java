@@ -13,9 +13,9 @@ import com.certant.vtvSpringBoot.domain.Inspeccion;
 
 @Repository
 public interface IInspeccionDao extends JpaRepository<Inspeccion, Long>{
-	
-	@Query("SELECT i FROM Inspeccion i INNER JOIN FETCH i.inspector p WHERE p.dni= (:dni)")
-	public abstract Set<Inspeccion> buscarInspeccionesPorDni(@Param("dni") Long dni);
+	//cambiado de dni a id, probarlo
+	@Query("SELECT i FROM Inspeccion i INNER JOIN FETCH i.inspector p WHERE p.id_inspector= (:id)")
+	public abstract Set<Inspeccion> buscarInspeccionesPorId(@Param("id") Long id);
 	
 	@Query("SELECT i FROM Inspeccion i INNER JOIN FETCH i.vehiculo v WHERE v.id= (:id)")
 	public abstract Set<Inspeccion> buscarInspeccionesPorAuto(Long id);

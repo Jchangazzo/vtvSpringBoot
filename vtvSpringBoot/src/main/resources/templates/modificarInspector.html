@@ -9,6 +9,7 @@
 		<h2> Datos del inspector</h2>
 		<a th:href ="@{/listaInspectores}">Regresar</a>
 		<br/>
+<!-- 		<p>Editando inspector con Id :<p th:text="${inspector.id_inspector}">Id</p></p>		 -->
         <form th:action="@{/guardarInspector}" method="post" th:object="${inspector}">
         	<br/>
         		
@@ -28,5 +29,6 @@
              <br/>  
              <input type="submit" name="guardar" value="Guardar"/>   
         </form>
+        
 	</body>
 </html>

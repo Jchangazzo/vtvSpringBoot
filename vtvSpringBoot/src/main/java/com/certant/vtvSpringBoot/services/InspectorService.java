@@ -6,11 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.certant.vtvSpringBoot.domain.Inspector;
-import com.certant.vtvSpringBoot.domain.Persona;
 import com.certant.vtvSpringBoot.repositories.IinspectorDao;
 @Service
 public class InspectorService {
-	private static long idInspectorValue;
+
 	@Autowired
 	//@Qualifier("personaDao")
 	private IinspectorDao inspectorDao;
@@ -22,9 +21,9 @@ public class InspectorService {
 		return inspectorDao.findAll();
 	}
 
-	public Persona findByDni(long dni) {
+	public Inspector findById(long id) {
 		
-		return null;
+		return inspectorDao.buscarPorId(id).orElse(null);
 	}
 
 	public Inspector Buscar(long dni){
@@ -33,13 +32,12 @@ public class InspectorService {
 	}
 
 	public void save(Inspector insp) {
-		insp.setId_inspector(idInspectorValue);
 		inspectorDao.save(insp);
-		idInspectorValue++;		
 	}
 
-	public void eliminar(long dni) {
-		inspectorDao.deleteById(dni);
+	public void eliminar(long id) {
+		var insp= inspectorDao.buscarPorId(id);
+		inspectorDao.deleteById(insp.get().getDni());
 		
 		
 	}
