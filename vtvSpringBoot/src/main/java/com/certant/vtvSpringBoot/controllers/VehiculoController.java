@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.certant.vtvSpringBoot.domain.Estado;
 import com.certant.vtvSpringBoot.domain.Inspeccion;
 import com.certant.vtvSpringBoot.domain.Marca;
+import com.certant.vtvSpringBoot.domain.Modelo;
 import com.certant.vtvSpringBoot.domain.Propietario;
 import com.certant.vtvSpringBoot.domain.Vehiculo;
 import com.certant.vtvSpringBoot.services.InspeccionService;
@@ -29,7 +30,15 @@ import com.certant.vtvSpringBoot.services.VehiculoService;
 
 @Controller
 public class VehiculoController {
-	
+	List<Modelo> modelosVW;
+	List<Modelo> modelosFord;
+	List<Marca> marcas;
+	@ModelAttribute
+	public void cargarModelos(Model modelo) {
+		marcas=Marca.getTodasMarcas();
+		modelosVW=Modelo.getTodasModeloVW();
+		modelosFord=Modelo.getTodasModeloFord();
+	}
 	
 	@Autowired 
 	private VehiculoService vehiculoService;
@@ -49,6 +58,9 @@ public class VehiculoController {
 	
 	@GetMapping("/agregarVehiculos")
 	public String agregar(Vehiculo vehiculo, Model model) {
+		model.addAttribute("modelosVW", modelosVW);
+		model.addAttribute("modelosFord", modelosFord);
+		model.addAttribute("marcas", marcas);
 //		Vehiculo vehicolo=new Vehiculo();
 //		Marca marca=Marca.VOLKSWAGEN;
 //		Modelo modelo=Marca.getTodasModeloFord().get(0);
@@ -67,7 +79,11 @@ public class VehiculoController {
 	@GetMapping("/agregarVehiculos/{dni}")
 	public String agregarEnProp(Vehiculo vehiculo, Propietario prop, Model modelo) {
 		var propietario=propietarioService.Buscar(prop.getDni());
-//		modelo.addAttribute("vehiculo", vehiculo);
+		vehiculo.setPropietario(propietario);
+		modelo.addAttribute("modelosVW", modelosVW);
+		modelo.addAttribute("modelosFord", modelosFord);
+		modelo.addAttribute("marcas", marcas);
+		modelo.addAttribute("vehiculo", vehiculo);
 		modelo.addAttribute("propietario", propietario);
 		return "modificarVehiculo";
 	}
@@ -100,7 +116,7 @@ public class VehiculoController {
 		return "insertarEstado";
 	}
 	@PostMapping("/buscarPorEstado/{id}")
-	public String buscarPorEstado(@RequestParam Estado estado, Vehiculo vehiculo, Model modelo) {
+	public String buscarPorEstado(@RequestParam Estado estado,@ModelAttribute Vehiculo vehiculo, Model modelo) {
 		var inspecciones=inspeccionService.buscarInspeccionesPorAuto(vehiculo.getId());
 		List<Inspeccion> inspeccionesABorrar=new ArrayList<>();
 		/**
@@ -157,6 +173,17 @@ public class VehiculoController {
 		return "indexInspecciones";
 	}
 	
+	@PostMapping("/siguiente")
+	public String agregarModelo(@Valid @ModelAttribute Vehiculo vehiculo, BindingResult result, Model model) {
+		System.out.println(vehiculo.getDominio()+vehiculo.getPropietario().getDni()+vehiculo.getMarca());
+		
+		model.addAttribute("vehiculo", vehiculo);
+		model.addAttribute("modelos", Marca.getModelosDeMarca(vehiculo.getMarca()));
+		model.addAttribute("marca", vehiculo.getMarca());
+		System.out.println(vehiculo.getMarca()+" //////AGREGAR///// "+vehiculo.getModelo());
+		return "agregarModelo";
+	}
+	
 	@PostMapping("/guardarVehiculo")
 	public String guardarVehiculo(@Valid @ModelAttribute Vehiculo vehiculo, BindingResult result, Model model) {
 		
@@ -164,8 +191,9 @@ public class VehiculoController {
 		 * 
 		 * 	VALIDACION DE PATENTE
 		 */
+		
 		String patente=vehiculo.getDominio();
-
+		System.out.println(vehiculo.getMarca()+" //////GUARDARD////// "+vehiculo.getModelo());
 		if(!patente.matches("[0-9]{3}"+"[-]{1}"+"[A-Z]{3}")) {
 		
 			FieldError error = new FieldError("vehiculo", "dominio", "la patente debe tener 7 caracteres contando el guion medio");

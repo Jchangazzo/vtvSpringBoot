@@ -41,18 +41,6 @@ public class InspeccionService {
 	public Set<Inspeccion> buscarPorEstado(Estado estado){
 		return inspeccionDao.buscarPorEstado(estado);
 	}
-//	public Set<Inspeccion> buscarAptos(){
-//		
-//		return inspeccionDao.buscarAptos();
-//	}
-//	public Set<Inspeccion> buscarCondicionales(){
-//			
-//		return inspeccionDao.buscarCondicionales();
-//	}
-//	public Set<Inspeccion> buscarRechazados(){
-//		
-//		return inspeccionDao.buscarRechazados();
-//	}
 
 	public void save(Inspeccion inspeccion) {
 		inspeccionDao.save(inspeccion);

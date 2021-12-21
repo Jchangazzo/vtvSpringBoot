@@ -18,6 +18,7 @@ public enum Marca {
 
     public Set<Modelo> Ford=Modelo.ford;
     
+    
     public static List<Marca> getTodasMarcas(){
     	List<Marca> listMarcas=new ArrayList<>();
     	listMarcas.add(Marca.VOLKSWAGEN);
@@ -35,13 +36,21 @@ public enum Marca {
 		return false;
     }
     
-    
+
     public static boolean isMarcaModeloCorrecto(Modelo modelo,Marca marca){
     	switch(marca){
     		case VOLKSWAGEN : return isVolkswagen(modelo);
     		case FORD		: return isFord(modelo);
     	}
 		return false;
+    }
+    
+    public static List<Modelo> getModelosDeMarca(Marca marca){
+    	switch(marca){
+    		case VOLKSWAGEN : return getTodasModeloVW();
+    		case FORD		: return getTodasModeloFord();
+    	}
+		return null;
     }
 
 	public static boolean isFord(Modelo modelo) {
