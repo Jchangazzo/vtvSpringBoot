@@ -120,13 +120,15 @@ public class InspeccionController {
 		 * 
 		 * 
 		 */
-		if(vehiculoService.Buscar(inspeccion.getVehiculo().getId())==null) {
+		System.out.println(inspeccion.getVehiculo().getDominio());
+		var vehiculo=vehiculoService.BuscarPorPatente(inspeccion.getVehiculo().getDominio());
+		if(vehiculoService.Buscar(vehiculo.getId())==null) {
 			FieldError error = new FieldError("inspeccion", "vehiculo.id", "ingrese el id de un vehiculo que se encuentre en la base de datos");
 			result.addError(error);			
 		}
 		
 		
-		if(inspectorService.Buscar(inspeccion.getInspector().getDni())==null) {
+		if(inspectorService.findById(inspeccion.getInspector().getId())==null) {
 			FieldError error = new FieldError("inspeccion", "inspector.dni", "ingrese el dni de un inspector que se encuentre en la base de datos");
 			result.addError(error);			
 		}
@@ -140,8 +142,8 @@ public class InspeccionController {
 		 * 
 		 * */
 		System.out.println(inspeccion.toString());
-		var inspector=inspectorService.Buscar(inspeccion.getInspector().getDni());
-		var vehiculo=vehiculoService.Buscar(inspeccion.getVehiculo().getId());
+		var inspector=inspectorService.findById(inspeccion.getInspector().getId());
+//		vehiculo=vehiculoService.Buscar(inspeccion.getVehiculo().getId());
 
 		inspector.getInspecciones().add(inspeccion);
 		vehiculo.getInspecciones().add(inspeccion);

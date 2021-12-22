@@ -191,16 +191,18 @@ public class VehiculoController {
 	@PostMapping("/guardarVehiculo")
 	public String guardarVehiculo(@Valid @ModelAttribute Vehiculo vehiculo, BindingResult result, Model model) {
 		
-		/**
+		/**TODO
+		 * falta agregar el otro formato de patente y sacarle el guion
+		 *
 		 * 
 		 * 	VALIDACION DE PATENTE
 		 */
 		
 		String patente=vehiculo.getDominio();
 		System.out.println(vehiculo.getMarca()+" //////GUARDARD////// "+vehiculo.getModelo());
-		if(!patente.matches("[0-9]{3}"+"[-]{1}"+"[A-Z]{3}")) {
+		if(!patente.matches("[0-9]{3}"+"[ ]{1}"+"[A-Z]{3}")) {
 		
-			FieldError error = new FieldError("vehiculo", "dominio", "la patente debe tener 7 caracteres contando el guion medio");
+			FieldError error = new FieldError("vehiculo", "dominio", "la patente debe tener 7 caracteres contando el espacio");
 			result.addError(error);	
 			
 		}

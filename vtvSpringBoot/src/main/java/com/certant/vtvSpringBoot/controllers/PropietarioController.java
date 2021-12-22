@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.certant.vtvSpringBoot.domain.Propietario;
+import com.certant.vtvSpringBoot.services.PersonaService;
 import com.certant.vtvSpringBoot.services.PropietarioService;
 import com.certant.vtvSpringBoot.services.VehiculoService;
 
@@ -22,6 +23,8 @@ public class PropietarioController {
 	private PropietarioService propietarioService;
 	@Autowired 
 	private VehiculoService vehiculoService;
+	@Autowired
+	private PersonaService personaService;
 
 	
 	@GetMapping("/listaPropietarios")
@@ -38,9 +41,9 @@ public class PropietarioController {
 	}
 	
 	
-	@GetMapping("/editarPropietario/{dni}")
+	@GetMapping("/editarPropietario/{id}")
 	public String editar(Propietario propietario, Model modelo) {
-//		var propietario=propietarioService.findById(propietario.getId());
+		propietario=propietarioService.findById(propietario.getId());
 		modelo.addAttribute("propietario", propietario);
 		return "modificarPropietario";
 	}
@@ -91,7 +94,9 @@ public class PropietarioController {
 			System.out.println("Hubo errores en la creacion del formulario!");
 			return "modificarPropietario";
 		}
-		//personaService.save(propietario.getPersona());
+//		var persona=personaService.buscarPorDni(propietario.getDni());
+//		propietario.setPersona(persona);
+		
 		propietarioService.save(propietario);
 		return "redirect:/listaPropietarios";
 	}

@@ -24,8 +24,8 @@
 				<td th:text="${propietario.apellido}">Mostrar Apellido</td>
 				<td th:text="${propietario.mail}">Mostrar eMail</td>
 				<td th:text="${propietario.dni}">Mostrar DNI</td>
-				<td><a th:href="@{/editarPropietario/}+${propietario.dni}" th:text="Editar"></a></td>
-				<td><a th:href="@{/eliminarPropietario(id=${propietario.id})}" th:text="Eliminar"></a></td>
+				<td><a th:href="@{/editarPropietario/}+${propietario.id}" th:text="Editar"></a></td>
+<!-- 				<td><a th:href="@{/eliminarPropietario(id=${propietario.id})}" th:text="Eliminar"></a></td> -->
 				<td><a th:href="@{/vehiculosPropietario/}+${propietario.id}" th:text="Vehiculos"></a></td>
 			</tr>
 		</table>

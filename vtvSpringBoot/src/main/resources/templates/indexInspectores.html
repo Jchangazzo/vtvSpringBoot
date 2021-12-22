@@ -21,7 +21,7 @@
 				<td th:text="${inspector.nombre}">Mostrar Nombre</td>
 				<td th:text="${inspector.apellido}">Mostrar Apellido</td>
 				<td th:text="${inspector.id}">Mostrar DNI</td>
-				<td><a th:href="@{/editarInspector/}+${inspector.id}" th:text="Editar"></a></td>
+<!-- 				<td><a th:href="@{/editarInspector/}+${inspector.id}" th:text="Editar"></a></td> -->
 				<td><a th:href="@{/eliminarInspector(id=${inspector.id})}" th:text="Eliminar"></a></td>
 				<td><a th:href="@{/inspeccionesInspector/}+${inspector.id}" th:text="Inspecciones"></a></td>
 			</tr>

@@ -11,9 +11,9 @@ import com.certant.vtvSpringBoot.domain.Persona;
 
 @Repository//("personaDao")
 public interface IPersonaDao extends JpaRepository<Persona, Long>{
-	@Modifying
-	@Query(value="INSERT INTO Persona (dni,apellido,nombre) VALUES (:dni,:nombre,:apellido) ON DUPLICATE KEY UPDATE",nativeQuery = true)
-	void guardarOActualizar(@Param("dni") Long dni,@Param("nombre") String apellido,@Param("apellido") String nombre);
+//	@Modifying
+//	@Query(value="INSERT INTO Persona (dni,apellido,nombre) VALUES (:dni,:nombre,:apellido) ON DUPLICATE KEY UPDATE",nativeQuery = true)
+//	void guardarOActualizar(@Param("dni") Long dni,@Param("nombre") String apellido,@Param("apellido") String nombre);
 	@Query("SELECT p FROM Persona p WHERE p.dni=(:dni)")
 	Optional<Persona> buscarPorDni(long dni);
 	

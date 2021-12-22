@@ -41,7 +41,7 @@ public class Inspeccion {
 	private boolean exento;
 	
 	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.MERGE)
-	@JoinColumn(name="inspector_dni", referencedColumnName="dni")
+	@JoinColumn(name="inspector_id", referencedColumnName="id")
 	//@NotEmpty(message="Ingrese un numero de inspector por favor!")
 	private Inspector inspector;
 	
