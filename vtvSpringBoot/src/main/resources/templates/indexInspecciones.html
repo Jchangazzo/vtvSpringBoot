@@ -37,7 +37,8 @@
 				<th>Fecha</th>
 				<th>Estado</th>
 				<th>Exento</th> 
-				<th>Inspector Nro</th>
+				<th>Inspector</th>
+				<th colspan="2">inspector nombre</th>
 				<th>Vehiculo patente</th>
 			</tr>
 			<tr th:each="inspeccion : ${inspecciones}">
@@ -46,6 +47,8 @@
 				<td th:text="${inspeccion.estado}">Mostrar modelo</td>
 				<td th:text="${inspeccion.exento}">Mostrar DNI</td>  
 				<td th:text="${inspeccion.inspector.id}">Mostrar Id</td>
+				<td th:text="${inspeccion.inspector.apellido}">apellido </td>
+				<td th:text="${inspeccion.inspector.nombre}">nombre</td>
 				<td th:text="${inspeccion.vehiculo.dominio}">Mostrar Vehiculo Id</td>		
 					
 						
