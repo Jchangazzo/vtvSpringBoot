@@ -36,8 +36,8 @@ public class InspectorService {
 	}
 
 	public void eliminar(long id) {
-		var insp= inspectorDao.buscarPorId(id);
-		inspectorDao.deleteById(insp.get().getDni());
+//		var insp= inspectorDao.buscarPorId(id);
+		inspectorDao.deleteById(id);
 		
 		
 	}
