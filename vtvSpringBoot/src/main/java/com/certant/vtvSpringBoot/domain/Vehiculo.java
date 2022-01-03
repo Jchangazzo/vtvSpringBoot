@@ -66,6 +66,7 @@ public class Vehiculo {
 	
 	public void setPropietario(Propietario propietario) {
 		this.propietario = propietario;
+//		propietario.addVehiculo(this);
 	}
 
 

@@ -1,5 +1,6 @@
 package com.certant.vtvSpringBoot.domain;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -73,6 +74,17 @@ public class Propietario extends Persona{
 
 	public void setVehiculos(Set<Vehiculo> vehiculos) {
 		this.vehiculos = vehiculos;
+	}
+	
+	public void addVehiculo(Vehiculo vehiculo) {
+		
+		if(this.vehiculos==null) {
+			Set<Vehiculo> vehiculos=new HashSet<Vehiculo>();
+			this.setVehiculos(vehiculos);
+		}
+		this.vehiculos.add(vehiculo);
+		vehiculo.setPropietario(this);
+		
 	}
 	
 }

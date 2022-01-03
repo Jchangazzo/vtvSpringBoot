@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.certant.vtvSpringBoot.domain.Estado;
 import com.certant.vtvSpringBoot.domain.Inspeccion;
@@ -178,9 +179,9 @@ public class VehiculoController {
 	}
 	
 	@PostMapping("/siguiente")
-	public String agregarModelo(@Valid @ModelAttribute Vehiculo vehiculo, BindingResult result, Model model) {
+	public String agregarModelo(@Valid @ModelAttribute Vehiculo vehiculo,	BindingResult result, Model model) {
 		System.out.println(vehiculo.getDominio()+vehiculo.getPropietario().getDni()+vehiculo.getMarca());
-		
+
 		model.addAttribute("vehiculo", vehiculo);
 		model.addAttribute("modelos", Marca.getModelosDeMarca(vehiculo.getMarca()));
 		model.addAttribute("marca", vehiculo.getMarca());
@@ -189,7 +190,7 @@ public class VehiculoController {
 	}
 	
 	@PostMapping("/guardarVehiculo")
-	public String guardarVehiculo(@Valid @ModelAttribute Vehiculo vehiculo, BindingResult result, Model model) {
+	public String guardarVehiculo(@Valid @ModelAttribute Vehiculo vehiculo,BindingResult result, Model model) {
 		
 		/**TODO
 		 * falta agregar el otro formato de patente y sacarle el guion
@@ -200,23 +201,24 @@ public class VehiculoController {
 		
 		String patente=vehiculo.getDominio();
 		System.out.println(vehiculo.getMarca()+" //////GUARDARD////// "+vehiculo.getModelo());
-		if(!patente.matches("[0-9]{3}"+"[ ]{1}"+"[A-Z]{3}")) {
+		if(!(patente.matches("[0-9]{3}"+"[ ]{1}"+"[A-Z]{3}")||(patente.matches("[0-9]{2}"+"[ ]{1}"+"[A-Z]{3}"+"[ ]{1}"+"[0-9]{2}")))) {
 		
 			FieldError error = new FieldError("vehiculo", "dominio", "la patente debe tener 7 caracteres contando el espacio");
 			result.addError(error);	
 			
 		}
 		
-
+		
 		if(vehiculoService.BuscarPorPatente(patente)!=null) {
 			FieldError error = new FieldError("vehiculo", "dominio", "la patente corresponde a un Vehiculo que ya se encuentra en la base de datos");
 			result.addError(error);		
 		}
-		
+		System.out.println(vehiculo);
 		Persona persona=personaService.buscarPorDni(vehiculo.getPropietario().getDni());
+		System.out.println(vehiculo);
 		Propietario prop=vehiculo.getPropietario();
 		prop.setId(persona.getId());
-		vehiculo.setPropietario(prop);
+//		vehiculo.setPropietario(prop);
 		if(propietarioService.findById(vehiculo.getPropietario().getId())==null) {
 			FieldError error = new FieldError("vehiculo", "propietario.dni", "ingrese el dni de un propietario que se encuentre en la base de datos");
 			result.addError(error);			
@@ -239,8 +241,9 @@ public class VehiculoController {
 		 * de hacer lo mismo en guardarInspeccion en InspeccionController
 		 */
 		var propietario=propietarioService.findById(vehiculo.getPropietario().getId());
-		vehiculo.setPropietario(propietario);
-		propietario.getVehiculos().add(vehiculo);
+//		vehiculo.setPropietario(propietario);
+		propietario.addVehiculo(vehiculo);
+//		propietario.getVehiculos().add(vehiculo);
 		System.out.println(vehiculo.getPropietario());
 
 		vehiculoService.save(vehiculo);
